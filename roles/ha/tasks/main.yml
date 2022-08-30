@@ -1,0 +1,13 @@
+- name: Install HA
+  apt:
+    name=haproxy
+    state=latest
+  notify:
+    - ha systemd
+
+- name: Replace haproxy.cfg
+  template:
+    src=templates/haproxy.cfg
+    dest=/etc/haproxy/haproxy.cfg
+  notify:
+    - ha restart

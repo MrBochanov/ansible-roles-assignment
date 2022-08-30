@@ -1,0 +1,35 @@
+- name: Install Nginx Web Server
+  apt:
+    name=nginx
+    state=latest
+  notify:
+    - nginx systemd
+
+- name: Install php8.1-fpm
+  apt:
+    name=php8.1-fpm
+    state=latest
+  notify:
+    - php systemd
+
+- name: Replace nginx.conf
+  template:
+    src=templates/nginx.conf
+    dest=/etc/nginx/nginx.conf
+
+- name: Delete default site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Create home directory for www
+  file:
+    path: /var/www/{{ virtual_domain }}
+    state: directory
+
+- name: Add virtual domain in NGINX
+  template:
+    src=templates/nginx_vhosts.conf
+    dest=/etc/nginx/sites-enabled/{{ virtual_domain }}.conf
+  notify:
+    - nginx restart

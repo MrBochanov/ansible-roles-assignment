@@ -1,0 +1,26 @@
+- hosts: web-servers
+  become:
+    true
+  become_method:
+    sudo
+  become_user:
+    root
+  remote_user:
+    ansible
+  roles:
+   - nginx
+   - app
+  vars:
+    nginx_user: www-data
+
+- hosts: lb-servers
+  become:
+    true
+  become_method:
+    sudo
+  become_user:
+    root
+  remote_user:
+    ha
+  roles:
+   - ha

@@ -1,0 +1,4 @@
+- name: Put app in correct place
+  template:
+    src=templates/index.php
+    dest=/var/www/{{ virtual_domain }}/index.php

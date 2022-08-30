@@ -1,0 +1,10 @@
+[web-servers]
+192.168.126.129 virtual_domain=serv1.bocha.ru hostname=serv1
+192.168.126.130 virtual_domain=serv2.bocha.ru hostname=serv2
+192.168.126.131 virtual_domain=serv3.bocha.ru hostname=serv3
+
+[lb-servers]
+192.168.126.132
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
